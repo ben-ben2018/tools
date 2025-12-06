@@ -13,31 +13,31 @@
     var PageLM = "2025-01-11 09:33";
     (function () {
       //加载核心库，其他类型支持库在下面根据用户点击选择加载，刷新页面可以恢复选择的类型
-      var srcC = "/s'r'c/recorder-core.js";
+      var srcC = "./src/recorder-core.js";
       var initJss = [srcC];
       var tei = window.TypeEngineImports = {//不同类型编码器需要加载的js文件
         mp3: {
-          src: [srcC, "/src/engine/mp3.js", "/src/engine/mp3-engine.js", 0, "/src/engine/wav.js"]
+          src: [srcC, "./src/engine/mp3.js", "./src/engine/mp3-engine.js", 0, "./src/engine/wav.js"]
         }
         , wav: {
-          src: [srcC, "/src/engine/wav.js"]
+          src: [srcC, "./src/engine/wav.js"]
         }
         , pcm: {
-          src: [srcC, "/src/engine/pcm.js", 0, "/src/engine/wav.js"]
+          src: [srcC, "./src/engine/pcm.js", 0, "./src/engine/wav.js"]
         }
         , amr: {
-          src: [srcC, "/src/engine/beta-amr.js", "/src/engine/beta-amr-engine.js", 0, "/src/engine/wav.js"]
+          src: [srcC, "./src/engine/beta-amr.js", "./src/engine/beta-amr-engine.js", 0, "./src/engine/wav.js"]
         }
         , ogg: {
-          src: [srcC, "/src/engine/beta-ogg.js", "/src/engine/beta-ogg-engine.js"]
+          src: [srcC, "./src/engine/beta-ogg.js", "./src/engine/beta-ogg-engine.js"]
         }
         , g711a: {}, g711u: {}
         , webm: {
           name: "webm(beta)", sort: 99,
-          src: [srcC, "/src/engine/beta-webm.js"]
+          src: [srcC, "./src/engine/beta-webm.js"]
         }
       };
-      tei.g711a.src = tei.g711u.src = [srcC, "/src/engine/g711x.js", 0, "/src/engine/wav.js"];
+      tei.g711a.src = tei.g711u.src = [srcC, "./src/engine/g711x.js", 0, "./src/engine/wav.js"];
 
       window.Import_RecJs_Set = {};//刷新页面，加载选中的类型js
       if (/recImport=([^?#&]+)/.test(location.href)) {
