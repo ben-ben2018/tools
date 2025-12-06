@@ -13,31 +13,31 @@
     var PageLM = "2025-01-11 09:33";
     (function () {
       //加载核心库，其他类型支持库在下面根据用户点击选择加载，刷新页面可以恢复选择的类型
-      var srcC = "src/recorder-core.js";
+      var srcC = "/s'r'c/recorder-core.js";
       var initJss = [srcC];
       var tei = window.TypeEngineImports = {//不同类型编码器需要加载的js文件
         mp3: {
-          src: [srcC, "src/engine/mp3.js", "src/engine/mp3-engine.js", 0, "src/engine/wav.js"]
+          src: [srcC, "/src/engine/mp3.js", "/src/engine/mp3-engine.js", 0, "/src/engine/wav.js"]
         }
         , wav: {
-          src: [srcC, "src/engine/wav.js"]
+          src: [srcC, "/src/engine/wav.js"]
         }
         , pcm: {
-          src: [srcC, "src/engine/pcm.js", 0, "src/engine/wav.js"]
+          src: [srcC, "/src/engine/pcm.js", 0, "/src/engine/wav.js"]
         }
         , amr: {
-          src: [srcC, "src/engine/beta-amr.js", "src/engine/beta-amr-engine.js", 0, "src/engine/wav.js"]
+          src: [srcC, "/src/engine/beta-amr.js", "/src/engine/beta-amr-engine.js", 0, "/src/engine/wav.js"]
         }
         , ogg: {
-          src: [srcC, "src/engine/beta-ogg.js", "src/engine/beta-ogg-engine.js"]
+          src: [srcC, "/src/engine/beta-ogg.js", "/src/engine/beta-ogg-engine.js"]
         }
         , g711a: {}, g711u: {}
         , webm: {
           name: "webm(beta)", sort: 99,
-          src: [srcC, "src/engine/beta-webm.js"]
+          src: [srcC, "/src/engine/beta-webm.js"]
         }
       };
-      tei.g711a.src = tei.g711u.src = [srcC, "src/engine/g711x.js", 0, "src/engine/wav.js"];
+      tei.g711a.src = tei.g711u.src = [srcC, "/src/engine/g711x.js", 0, "/src/engine/wav.js"];
 
       window.Import_RecJs_Set = {};//刷新页面，加载选中的类型js
       if (/recImport=([^?#&]+)/.test(location.href)) {
@@ -64,14 +64,14 @@
   <div class="main">
 
     <!--加载可选扩展库-->
-    <script src="src/extensions/waveview.js"></script>
-    <script src="src/extensions/wavesurfer.view.js"></script>
-    <script src="src/extensions/lib.fft.js"></script>
-    <script src="src/extensions/frequency.histogram.view.js"></script>
-    <script src="src/extensions/create-audio.nmn2pcm.js"></script>
+    <script src="./src/extensions/waveview.js"></script>
+    <script src="./src/extensions/wavesurfer.view.js"></script>
+    <script src="./src/extensions/lib.fft.js"></script>
+    <script src="./src/extensions/frequency.histogram.view.js"></script>
+    <script src="./src/extensions/create-audio.nmn2pcm.js"></script>
 
     <!--加载PlayBuffer-->
-    <script src="assets/runtime-codes/fragment.playbuffer.js"></script>
+    <script src="./assets/runtime-codes/fragment.playbuffer.js"></script>
 
 
     <style>
@@ -189,11 +189,8 @@
         return "randomkey" + (RandomKey.idx++);
       };
       RandomKey.idx = 0;
-
-      //乐此不疲，古董浏览器，仅保证基本的可执行不代码异常
-      if (!Date.now) Date.now = function () { return new Date().getTime() };
     </script>
-    <script src="assets/ztest-jquery.min-1.9.1.js"></script>
+    <script src="./assets/ztest-jquery.min-1.9.1.js"></script>
 
     <!-- begin 开始copy源码 -->
     <div class="demoMain">
@@ -1219,10 +1216,6 @@ UA:${navigator.userAgent}
             };
             tips.push("</span>, " + (enc.getTestMsg && enc.getTestMsg() || enc.testmsg));
           }
-          tips.push('<div style="color:green;padding-left:50px">');
-          tips.push("使用" + type + "录音需要加载的js：");
-          tips.push("<br>" + "【源文件】：" + "src/recorder-core.js, " + srcs.join(", "));
-          tips.push("</div>");
 
           $(".typeTips").html(tips.join(""));
 
