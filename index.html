@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工具集合 - 在线实用工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: #000000;
+            border-bottom: 2px solid #ffffff;
+            padding: 24px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            font-size: 18px;
+            color: #cccccc;
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            flex: 1;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 12px;
+            margin-top: 0;
+        }
+
+        .tool-card {
+            background-color: #000000;
+            border: 2px solid #ffffff;
+            padding: 20px 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 180px;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .tool-card:visited {
+            color: #ffffff;
+        }
+
+        .tool-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .tool-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .tool-description {
+            font-size: 13px;
+            color: #aaaaaa;
+            line-height: 1.6;
+            max-width: 100%;
+        }
+
+        .footer {
+            background-color: #000000;
+            border-top: 2px solid #ffffff;
+            padding: 20px 20px;
+            text-align: center;
+            color: #888888;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px 16px;
+            }
+
+            .header h1 {
+                font-size: 36px;
+                margin-bottom: 4px;
+            }
+
+            .container {
+                padding: 20px 16px;
+            }
+
+            .tools-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 10px;
+            }
+
+            .tool-card {
+                padding: 18px 12px;
+                min-height: 160px;
+            }
+
+            .tool-title {
+                font-size: 18px;
+                margin-bottom: 6px;
+            }
+
+            .tool-icon {
+                font-size: 32px;
+                margin-bottom: 8px;
+            }
+
+            .tool-description {
+                font-size: 12px;
+            }
+
+            .footer {
+                padding: 16px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>工具集合</h1>
+        <p>实用在线工具，简单高效</p>
+    </header>
+
+    <main class="container">
+        <div class="tools-grid">
+            <a href="./exif/index.html" class="tool-card">
+                <span class="tool-icon">📷</span>
+                <h2 class="tool-title">EXIF 查看器</h2>
+                <p class="tool-description">
+                    在线查看照片的EXIF元数据信息，包括拍摄参数、相机信息、镜头数据等。纯浏览器端处理，保护隐私安全。
+                </p>
+            </a>
+
+            <a href="./recorder/index.html" class="tool-card">
+                <span class="tool-icon">🎤</span>
+                <h2 class="tool-title">录音工具</h2>
+                <p class="tool-description">
+                    支持多种音频格式的前端录音解决方案，包括MP3、WAV、PCM等格式，支持实时上传和音频可视化。
+                </p>
+            </a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2025 工具集合 | 简洁 · 实用 · 高效</p>
+    </footer>
+</body>
+</html>
