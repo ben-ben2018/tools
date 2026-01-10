@@ -3,7 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>工具集合 - 在线实用工具</title>
+    <title>鹤林工具集合 - 在线实用工具</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="鹤林工具集合提供多种实用的在线工具，包括EXIF查看器、录音工具、拼豆图案生成器等。所有工具均支持浏览器端处理，保护用户隐私，简单高效。">
+    <meta name="keywords" content="在线工具,EXIF查看器,录音工具,拼豆图案生成器,实用工具,浏览器工具,隐私安全">
+    <meta name="author" content="鹤林工具集合">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <link rel="canonical" href="https://tools.20181228.xyz/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tools.20181228.xyz/">
+    <meta property="og:title" content="鹤林工具集合 - 在线实用工具">
+    <meta property="og:description" content="提供多种实用的在线工具，包括EXIF查看器、录音工具、拼豆图案生成器等。所有工具均支持浏览器端处理，保护用户隐私。">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:site_name" content="鹤林工具集合">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://tools.20181228.xyz/">
+    <meta name="twitter:title" content="鹤林工具集合 - 在线实用工具">
+    <meta name="twitter:description" content="提供多种实用的在线工具，包括EXIF查看器、录音工具、拼豆图案生成器等。所有工具均支持浏览器端处理，保护用户隐私。">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "鹤林工具集合",
+        "description": "提供多种实用的在线工具，包括EXIF查看器、录音工具、拼豆图案生成器等",
+        "url": "https://tools.20181228.xyz/",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://tools.20181228.xyz/?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "在线工具列表",
+        "description": "鹤林工具集合提供的实用在线工具",
+        "itemListElement": [
+            {
+                "@type": "SoftwareApplication",
+                "position": 1,
+                "name": "EXIF 查看器",
+                "description": "在线查看照片的EXIF元数据信息，包括拍摄参数、相机信息、镜头数据等。纯浏览器端处理，保护隐私安全。",
+                "url": "https://tools.20181228.xyz/exif/index.html",
+                "applicationCategory": "UtilityApplication"
+            },
+            {
+                "@type": "SoftwareApplication",
+                "position": 2,
+                "name": "录音工具",
+                "description": "支持多种音频格式的前端录音解决方案，包括MP3、WAV、PCM等格式，支持实时上传和音频可视化。",
+                "url": "https://tools.20181228.xyz/recorder/index.html",
+                "applicationCategory": "MultimediaApplication"
+            },
+            {
+                "@type": "SoftwareApplication",
+                "position": 3,
+                "name": "拼豆图案生成器",
+                "description": "将图片一键转换为拼豆底稿，支持自定义尺寸、多种调色板，实时预览并导出高清图案。",
+                "url": "https://tools.20181228.xyz/pindou/index.html",
+                "applicationCategory": "DesignApplication"
+            }
+        ]
+    }
+    </script>
     <style>
         * {
             margin: 0;
@@ -154,24 +226,24 @@
 
     <main class="container">
         <div class="tools-grid">
-            <a href="./exif/index.html" class="tool-card">
-                <span class="tool-icon">📷</span>
+            <a href="./exif/index.html" class="tool-card" title="EXIF 查看器 - 在线查看照片元数据信息" aria-label="打开 EXIF 查看器工具">
+                <span class="tool-icon" aria-hidden="true">📷</span>
                 <h2 class="tool-title">EXIF 查看器</h2>
                 <p class="tool-description">
                     在线查看照片的EXIF元数据信息，包括拍摄参数、相机信息、镜头数据等。纯浏览器端处理，保护隐私安全。
                 </p>
             </a>
 
-            <a href="./recorder/index.html" class="tool-card">
-                <span class="tool-icon">🎤</span>
+            <a href="./recorder/index.html" class="tool-card" title="录音工具 - 支持多种音频格式的前端录音" aria-label="打开录音工具">
+                <span class="tool-icon" aria-hidden="true">🎤</span>
                 <h2 class="tool-title">录音工具</h2>
                 <p class="tool-description">
                     支持多种音频格式的前端录音解决方案，包括MP3、WAV、PCM等格式，支持实时上传和音频可视化。
                 </p>
             </a>
 
-            <a href="./pindou/index.html" class="tool-card">
-                <span class="tool-icon">🎨</span>
+            <a href="./pindou/index.html" class="tool-card" title="拼豆图案生成器 - 图片转拼豆底稿工具" aria-label="打开拼豆图案生成器工具">
+                <span class="tool-icon" aria-hidden="true">🎨</span>
                 <h2 class="tool-title">拼豆图案生成器</h2>
                 <p class="tool-description">
                     将图片一键转换为拼豆底稿，支持自定义尺寸、多种调色板，实时预览并导出高清图案。
@@ -179,5 +251,9 @@
             </a>
         </div>
     </main>
+    
+    <footer class="footer">
+        <p>&copy; 2024 鹤林工具集合. 所有工具均支持浏览器端处理，保护用户隐私。</p>
+    </footer>
 </body>
 </html>
