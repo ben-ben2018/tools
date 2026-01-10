@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/pindou/static/css/main.74aad0a1.css",
+    "main.js": "/pindou/static/js/main.68e13381.js",
+    "static/js/453.fcc762cf.chunk.js": "/pindou/static/js/453.fcc762cf.chunk.js",
+    "index.html": "/pindou/index.html",
+    "main.74aad0a1.css.map": "/pindou/static/css/main.74aad0a1.css.map",
+    "main.68e13381.js.map": "/pindou/static/js/main.68e13381.js.map",
+    "453.fcc762cf.chunk.js.map": "/pindou/static/js/453.fcc762cf.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.74aad0a1.css",
+    "static/js/main.68e13381.js"
+  ]
+}
