@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>加密小说阅读</title>
+  <style>
+    :root {
+      --bg: #1a1b26;
+      --surface: #24283b;
+      --text: #c0caf5;
+      --dim: #565f89;
+      --accent: #7aa2f7;
+      --input-bg: #1f2336;
+      --border: #3b4261;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Noto Serif SC", "Source Han Serif CN", serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+    }
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 1rem 1.5rem;
+      padding-left: max(1rem, env(safe-area-inset-left));
+      padding-right: max(1rem, env(safe-area-inset-right));
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .header .pwd-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .header label { color: var(--dim); font-size: 0.9rem; white-space: nowrap; }
+    .header input[type="password"] {
+      width: 12rem;
+      min-width: 0;
+      min-height: 2.5rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 1rem;
+    }
+    .header input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .btn {
+      padding: 0.5rem 1rem;
+      min-height: 2.5rem;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    .btn:hover { filter: brightness(1.1); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-secondary {
+      background: var(--border);
+      color: var(--text);
+    }
+    .main {
+      max-width: 42rem;
+      margin: 0 auto;
+      padding: 1.5rem;
+      padding-left: max(1.5rem, env(safe-area-inset-left));
+      padding-right: max(1.5rem, env(safe-area-inset-right));
+      padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+    }
+    .status {
+      padding: 0.75rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    .status.info { background: rgba(122, 162, 247, 0.15); color: var(--accent); }
+    .status.err { background: rgba(243, 139, 168, 0.2); color: #f7768e; }
+    .status.ok { background: rgba(158, 206, 106, 0.15); color: #9ece6a; }
+    .chapter {
+      margin-bottom: 2.5rem;
+      padding: 1.25rem;
+      background: var(--surface);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .chapter h2 {
+      margin: 0 0 1rem;
+      font-size: 1.1rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .chapter .content {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 1rem;
+      color: var(--text);
+    }
+    .empty { text-align: center; color: var(--dim); padding: 3rem 1rem; }
+    input[type="file"] { display: none; }
+
+    @media (max-width: 640px) {
+      .header {
+        padding: 0.75rem 1rem;
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+        gap: 0.5rem;
+      }
+      .header .pwd-row { width: 100%; }
+      .header input[type="password"] {
+        flex: 1;
+        width: 100%;
+        min-height: 2.75rem;
+      }
+      .header .btn-wrap {
+        width: 100%;
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      .header .btn-wrap .btn { flex: 1; min-width: 8rem; min-height: 2.75rem; }
+      .main {
+        padding: 1rem;
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+      }
+      .chapter {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      .chapter .content { font-size: 0.9375rem; }
+    }
+
+    .tab-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem 0.5rem;
+      padding: 0.5rem 0;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .tab-bar button {
+      padding: 0.35rem 0.65rem;
+      font-size: 0.875rem;
+      background: transparent;
+      color: var(--dim);
+      border: 1px solid transparent;
+      border-radius: 4px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .tab-bar button:hover { color: var(--text); background: var(--surface); }
+    .tab-bar button.active {
+      color: var(--accent);
+      background: rgba(122, 162, 247, 0.15);
+      border-color: var(--border);
+    }
+    .single-content {
+      padding: 1.25rem;
+      background: var(--surface);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .single-content .content {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 1rem;
+      color: var(--text);
+    }
+    @media (max-width: 640px) {
+      .single-content { padding: 1rem; }
+      .single-content .content { font-size: 0.9375rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="pwd-row">
+      <label for="pwd">密码</label>
+      <input type="password" id="pwd" placeholder="输入解密密码" autocomplete="off" />
+    </div>
+    <div class="btn-wrap">
+      <button type="button" class="btn" id="btnDecrypt">解密并阅读</button>
+      <button type="button" class="btn btn-secondary" id="btnPickFiles">选择本地 txt 文件</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <div id="status"></div>
+    <nav id="tabBar" class="tab-bar" role="tablist" aria-label="文件切换" style="display: none;"></nav>
+    <div id="chapters"></div>
+  </main>
+
+  <script>
+    (function () {
+      const MAX_CHAPTERS = 50;
+      const statusEl = document.getElementById('status');
+      const chaptersEl = document.getElementById('chapters');
+      const tabBarEl = document.getElementById('tabBar');
+      const pwdEl = document.getElementById('pwd');
+      const btnDecrypt = document.getElementById('btnDecrypt');
+      const btnPickFiles = document.getElementById('btnPickFiles');
+
+      function decrypt(cipherText, key) {
+        if (!key) return cipherText;
+        var result = '';
+        var keyLength = key.length;
+        for (var i = 0; i < cipherText.length; i++) {
+          var charCode = cipherText.charCodeAt(i);
+          var keyChar = key[i % keyLength];
+          var shift = keyChar.charCodeAt(0) + i;
+          var decryptedCode = charCode - shift;
+          result += String.fromCharCode(decryptedCode);
+        }
+        return result;
+      }
+
+      function showStatus(msg, type) {
+        type = type || 'info';
+        statusEl.innerHTML = '<div class="status ' + type + '">' + escapeHtml(msg) + '</div>';
+      }
+      function clearStatus() { statusEl.innerHTML = ''; }
+      function escapeHtml(s) {
+        var div = document.createElement('div');
+        div.textContent = s;
+        return div.innerHTML;
+      }
+
+      var rawChapters = [];
+      var decryptedList = [];
+      var currentTabIndex = 0;
+
+      function loadFromSource() {
+        rawChapters = [];
+        var base = 'source/';
+        function tryOne(n) {
+          if (n > MAX_CHAPTERS) {
+            renderChaptersPlaceholder();
+            return;
+          }
+          var filename = n + '.txt';
+          fetch(base + filename)
+            .then(function (r) {
+              if (!r.ok) throw new Error('not found');
+              return r.text();
+            })
+            .then(function (text) {
+              rawChapters.push({ name: filename, text: text });
+              tryOne(n + 1);
+            })
+            .catch(function () {
+              if (rawChapters.length === 0) {
+                showStatus('未在 source/ 下找到 1.txt、2.txt 等文件。请用本地服务器打开本页，或使用「选择本地 txt 文件」。', 'err');
+              } else {
+                showStatus('已加载 ' + rawChapters.length + ' 个文件。输入密码后点击「解密并阅读」。', 'ok');
+              }
+              renderChaptersPlaceholder();
+            });
+        }
+        clearStatus();
+        showStatus('正在加载 source 目录…', 'info');
+        tryOne(1);
+      }
+
+      function renderChaptersPlaceholder() {
+        if (rawChapters.length === 0) {
+          chaptersEl.innerHTML = '<div class="empty">暂无文件。请从 source 加载或选择本地文件。</div>';
+          tabBarEl.style.display = 'none';
+          return;
+        }
+        chaptersEl.innerHTML = '<div class="empty">已加载 ' + rawChapters.length + ' 个文件，请输入密码并点击「解密并阅读」。</div>';
+        tabBarEl.style.display = 'none';
+      }
+
+      function showTabContent(index) {
+        currentTabIndex = index;
+        var text = decryptedList[index];
+        chaptersEl.innerHTML = '<div class="single-content"><div class="content">' + escapeHtml(text) + '</div></div>';
+        var tabs = tabBarEl.querySelectorAll('button');
+        for (var j = 0; j < tabs.length; j++) {
+          tabs[j].classList.toggle('active', j === index);
+          tabs[j].setAttribute('aria-selected', j === index ? 'true' : 'false');
+        }
+      }
+
+      function renderTabs() {
+        tabBarEl.innerHTML = '';
+        for (var i = 0; i < rawChapters.length; i++) {
+          var name = rawChapters[i].name;
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.textContent = name;
+          btn.setAttribute('role', 'tab');
+          btn.setAttribute('aria-selected', i === currentTabIndex ? 'true' : 'false');
+          if (i === currentTabIndex) btn.classList.add('active');
+          (function (idx) {
+            btn.addEventListener('click', function () { showTabContent(idx); });
+          })(i);
+          tabBarEl.appendChild(btn);
+        }
+        tabBarEl.style.display = 'flex';
+      }
+
+      function renderDecrypted() {
+        var key = (pwdEl.value || '').trim();
+        if (rawChapters.length === 0) {
+          showStatus('请先加载文件（从 source 或选择本地文件）。', 'err');
+          return;
+        }
+        clearStatus();
+        decryptedList = [];
+        for (var i = 0; i < rawChapters.length; i++) {
+          decryptedList.push(decrypt(rawChapters[i].text, key));
+        }
+        currentTabIndex = 0;
+        renderTabs();
+        showTabContent(0);
+      }
+
+      btnDecrypt.addEventListener('click', function () {
+        renderDecrypted();
+      });
+
+      btnPickFiles.addEventListener('click', function () {
+        var input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.txt';
+        input.multiple = true;
+        input.onchange = function () {
+          var files = input.files;
+          if (!files || files.length === 0) return;
+          rawChapters = [];
+          var left = files.length;
+          [].forEach.call(files, function (file) {
+            var reader = new FileReader();
+            reader.onload = function () {
+              rawChapters.push({ name: file.name, text: reader.result });
+              left--;
+              if (left === 0) {
+                rawChapters.sort(function (a, b) { return a.name.localeCompare(b.name); });
+                showStatus('已加载 ' + rawChapters.length + ' 个文件。输入密码后点击「解密并阅读」。', 'ok');
+                renderChaptersPlaceholder();
+              }
+            };
+            reader.readAsText(file, 'UTF-8');
+          });
+        };
+        input.click();
+      });
+
+      loadFromSource();
+    })();
+  </script>
+</body>
+</html>
